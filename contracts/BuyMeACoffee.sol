@@ -65,7 +65,7 @@ contract BuyMeACoffee is Ownable, ReentrancyGuard {
     /**
      * @dev send the entire balance stored in this contract to the owner
      */
-    function withdrawTips() external onlyOwner {
+    function withdrawTips() external nonReentrant onlyOwner {
         (bool success, ) = payable(msg.sender).call{value: address(this).balance}("");
         require(success, "Transaction failed");
     }
